@@ -3,8 +3,8 @@ package menus;
 import java.util.Scanner;
 
 public class PaymentMenu extends Menu{
-	private String menuText = "Choose an option"
-							+ "1. Process a payment"
+	private String menuText = "Choose an option\n"
+							+ "1. Process a payment\n"
 							+ "2. Show outstanding payments";
 	@Override
 	public int HandleMenuOption(Scanner in) {

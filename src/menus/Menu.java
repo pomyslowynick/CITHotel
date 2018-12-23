@@ -1,7 +1,8 @@
 package menus;
 
+import java.io.IOException;
 import java.util.Scanner;
-import exception.NegativeIntException;
+import exception.OutOfRangeException;
 
 public abstract class Menu {
 	public String menuText;
@@ -10,7 +11,20 @@ public abstract class Menu {
 		System.out.println(this.menuText);
 	}
 	
-	public abstract int HandleMenuOption(Scanner in) throws NegativeIntException;
+	public void setMenuText(String menuText) {
+		this.menuText = menuText;
+	}
+	public void waitForUser() {
+		System.out.println("Press ENTER to get back to main menu");
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public abstract int HandleMenuOption(Scanner in) throws OutOfRangeException;
 		
 	
 }

@@ -4,8 +4,8 @@ import controller.HotelController;
 import storage.FileStorage;
 
 public class Start {
-	HotelController control;
-	FileStorage store;
+	public HotelController control;
+	protected FileStorage store;
 	public void CheckControllerExists() {
 		store = new FileStorage();
 		try {//load controller object from file and continue from last save

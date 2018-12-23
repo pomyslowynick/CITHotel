@@ -5,13 +5,12 @@ import java.util.ArrayList;
 
 public class ObjectList  implements Serializable {
 	private int max_num;
-	private ArrayList<Object> list;
+	protected ArrayList<Object> list;
 	
 	public ObjectList(int maximum) {
 		list = new ArrayList<Object>();
 		this.max_num = maximum;
 	}
-	
 	public void add(Object obj) {
 		if(list.size() < this.max_num)
 			this.list.add(obj);
@@ -31,5 +30,9 @@ public class ObjectList  implements Serializable {
 	
 	public ArrayList<Object> getList(){
 		return this.list;
+	}
+	
+	public int getIndex(Object obj) {
+		return list.indexOf(obj);
 	}
 }

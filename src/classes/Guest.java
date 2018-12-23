@@ -3,7 +3,7 @@ package classes;
 import java.io.Serializable;
 
 public class Guest  implements Serializable{
-	private String first_name, last_name;
+	private String firstName, lastName;
 	private int phoneNumber;
 	private int numGuests;
 	private double discount;
@@ -11,26 +11,36 @@ public class Guest  implements Serializable{
 	public Guest(double discount) {
 		this.discount = discount;
 	}
+	
 	public int getNumGuests() {
 		return this.numGuests;
 	}
-	public String getFirst_name() {
-		return first_name;
+	
+	public String getfirstName() {
+		return firstName;
 	}
-	public String getLast_name() {
-		return last_name;
+	
+	public String getlastName() {
+		return lastName;
 	}
-	public void setFirst_name(String first_name) {
-		this.first_name = first_name;
+	
+	public void setfirstName(String firstName) {
+		this.firstName = firstName;
 	}
-	public void setLast_name(String last_name) {
-		this.last_name = last_name;
+	
+	public void setlastName(String lastName) {
+		this.lastName = lastName;
 	}
+	
 	public int getPhoneNumber() {
 		return phoneNumber;
 	}
+	
 	public void setPhoneNumber(int phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	
+	public String toString() {
+		return firstName + " " + lastName;
+	}
 }

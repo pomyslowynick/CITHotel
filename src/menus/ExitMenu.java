@@ -1,20 +1,25 @@
 package menus;
 
 import java.util.Scanner;
+import exception.OutOfRangeException;
 
 public class ExitMenu extends Menu {
-	private String menuText = "Do you want to save file?" 
-							+ "1. Yes"
+	private String menuText = "Do you want to save file?\n" 
+							+ "1. Yes\n"
 							+ "2. No";
 	@Override
-	public int HandleMenuOption(Scanner in) {
-		System.out.println(menuText);
+	public int HandleMenuOption(Scanner in) throws OutOfRangeException {
+		setMenuText(menuText);
+		DisplayMenu(in);
 		int userChoice = in.nextInt();
-		switch(userChoice) {
-		case 1: 
-		case 2:
+		if (userChoice < 1 || userChoice > 2) {
+			throw new OutOfRangeException("Number outside of range!");
 		}
-		return 0;
+		switch(userChoice) {
+		case 1: return 1;
+		case 2: return 0;
+		}
+		return 1;
 	}
 
 }
