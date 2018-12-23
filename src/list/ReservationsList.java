@@ -9,13 +9,23 @@ public class ReservationsList extends ObjectList{
 		super(maximum);
 	}
 	
-	public void AddReservation(Reservation reservation) {
+	public void addReservation(Reservation reservation) {
 		this.add(reservation);
 	}
 	
-	public void CancelReservation(Reservation reservation) {
+	public void cancelReservation(Reservation reservation) {
 		int tempIndex = list.indexOf(reservation);
 		this.remove(tempIndex);
 	}
+	
+	public Reservation getReservationByID(int id) {
+		for (Object r:list) {
+			if (((Reservation) r).getID() == id) {
+				return (Reservation) r;
+			}
+		}
+		return null;
+	}
+	
 
 }

@@ -62,4 +62,14 @@ public class Room  implements Serializable{
 	public ArrayList<Payment> getPayments(){
 		return this.payments;
 	}
+	
+	public String getRoomType() {
+		if(this instanceof Single) {
+			return "Single";
+		}else if (this instanceof DoubleRoom) {
+			return "DoubleRoom";
+		}else {
+			return "Suite";
+		}
+	}
 }
