@@ -42,9 +42,9 @@ public class HomeMenu extends Menu{
 		waitForUser();
 	}
 	
-	public void DisplayReservationMenu(Scanner in, ReservationsList reservations) throws OutOfRangeException {
+	public void DisplayReservationMenu(Scanner in, ReservationsList reservations, GuestList guests, RoomList rooms) throws OutOfRangeException {
 		int option = new ReservationsMenu().HandleMenuOption(in);
-		new ReservationsController(in).handleReservationMenu(option, reservations);
+		new ReservationsController(in).handleReservationMenu(option, reservations, guests, rooms);
 	}
 	
 	public void DisplayPaymentMenu(Scanner in) throws OutOfRangeException{

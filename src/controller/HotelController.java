@@ -31,8 +31,7 @@ public class HotelController implements Serializable{
 			try {
 				userChoice = men.HandleMenuOption(in);
 				switch(userChoice) {
-				case 1: men.DisplayReservationMenu(in, reservations);
-						
+				case 1: men.DisplayReservationMenu(in, reservations, guests, rooms);
 						break;
 				case 2: men.DisplayGuests(in, guests);
 						break;
