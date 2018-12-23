@@ -20,7 +20,10 @@ public class Room  implements Serializable{
 	public void setRate(double rate) {
 		this.rate = rate;
 	}
-
+	
+	public void makeAvailable() {
+		this.guest = null;
+	}
 	public int getMaxOccupancy() {
 		return this.max_guests;
 	}

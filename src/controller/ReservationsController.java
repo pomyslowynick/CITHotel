@@ -1,6 +1,6 @@
 package controller;
 
-import java.io.IOException;
+import java.io.Serializable;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ import list.GuestList;
 import list.ReservationsList;
 import list.RoomList;
 
-public class ReservationsController {
+public class ReservationsController implements Serializable{
 	Scanner in;
 	
 	public ReservationsController(Scanner in) {
@@ -27,7 +27,7 @@ public class ReservationsController {
 		switch(userChoice) {
 		case 1: addReservation(reservations, guests, rooms);
 				break;
-		case 2: cancelReservation(reservations);
+		case 2: cancelReservation(reservations, guests, rooms);
 				break;
 		case 3: displayReservations(in, reservations); 
 				break;
@@ -49,9 +49,9 @@ public class ReservationsController {
 		while (loopCondition) {
 			try {
 	            System.out.println("What type of room are you interested in?\n"
-	            		+ "1. Single, 150 euro per night.\n"
-	            		+ "2. Double 100 euro per person, per night.\n"
-	            		+ "3. Suite 75 euro per person, per night.");
+				            		+ "1. Single, 150 euro per night.\n"
+				            		+ "2. Double 100 euro per person, per night.\n"
+				            		+ "3. Suite 75 euro per person, per night.");
 	            int roomType = in.nextInt();
 	            roomCheck = bookRoom(newGuest, rooms, roomType);
 	            if (roomCheck != null) {loopCondition = false;}
@@ -64,34 +64,37 @@ public class ReservationsController {
 			try {
 				int maxOccup = roomCheck.getMaxOccupancy();
 	            if (!(roomCheck instanceof Single)) {
-	            	System.out.println("How many people are with you?");
-	            	peopleNum = in.nextInt();
-	            	if (maxOccup < peopleNum + 1) {
-		            	System.out.println("You can't have more than " + maxOccup + " in your room");
-			            }
-		            else {
-		            	for(int i = 0; i < peopleNum; i ++) {
-			            	System.out.println("Provide details for other guests\n");
-			            	in.nextLine();
-			            	Guest additionalGuest = addGuest(guests);
-			            	roomCheck.addGuest(additionalGuest); 
-		            	}
-		            }
+	            	boolean innerLoopCond = true;
+	            	while (innerLoopCond) {
+	            		System.out.println("How many people are with you?");
+	            		peopleNum = in.nextInt();
+	            		if (maxOccup < peopleNum + 1) {
+	            			System.out.println("You can't have more than " + maxOccup + ",counting yourself, in your room");
+	            		}
+	            		else {
+	            			newGuest.setNumGuests(peopleNum);
+	            			for(int i = 0; i < peopleNum; i ++) {
+	            				System.out.println("Provide details for other guests\n");
+	            				in.nextLine();
+	            				Guest additionalGuest = addGuest(guests);
+	            				roomCheck.addGuest(additionalGuest); 
+	            				innerLoopCond = false;
+	            			}
+	            		}
+	            	}
 	            }
+	            loop2 = false;
 			 
 	        } catch (InputMismatchException e) {
 	            System.out.println("\n" + e + "\nhas happened, make sure to input correct values.\n Click enter to continue...");
-	        } finally {
-	        	loop2 = false;
 	        }
 		}
-		System.out.println("How many days to plan to stay?");
+		System.out.println("How many days you plan to stay?");
 		int stayDays = in.nextInt();
 		Reservation finalReservation = new Reservation(newGuest, roomCheck);
 		reservations.add(finalReservation);
-		double finalCost = ((roomCheck.getRate() * (peopleNum + 1)) * stayDays);
-		if(newGuest instanceof Lecturer) { finalCost = finalCost * 0.95;}
-		System.out.println("Final cost: " + (roomCheck.getRate() * (peopleNum + 1)) * stayDays);
+		double finalCost = ((roomCheck.getRate() * (peopleNum + 1)) * stayDays) * (1 - newGuest.getDiscount());
+		System.out.println("Final cost: " + finalCost);
 		waitForUser();
 		return 0;
 	}
@@ -129,6 +132,7 @@ public class ReservationsController {
 		guests.add(newGuest);
 		return newGuest;
 	}
+	
 	public Room bookRoom(Guest newGuest, RoomList rooms, int roomType) {
 		switch(roomType) {
 		case 1:
@@ -160,13 +164,23 @@ public class ReservationsController {
 		}
 		return null;
 	}
-	public void cancelReservation(ReservationsList reservations) {
+	
+	public void cancelReservation(ReservationsList reservations, GuestList guests, RoomList rooms) {
 		System.out.println("Input id of your reservation: ");
 		int resID = in.nextInt();
 		Reservation check = reservations.getReservationByID(resID);
 		try {
 			if(check != null) {
+				Guest tempGuest = check.getGuest();
+				int guestIndex = guests.getIndex(check.getGuest());
+				for(int i = 0; i <= tempGuest.getNumGuests();i++) {
+					guests.remove(guestIndex);
+				}
+				check.getRoom().makeAvailable();
 				reservations.cancelReservation(check);
+				
+			}else {
+				System.out.println("ID not found");
 			}
 		}catch(InputMismatchException e) {
 			System.out.println("\n" + e + "\nhas happened, make sure to input correct values.");

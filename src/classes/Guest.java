@@ -16,6 +16,14 @@ public class Guest  implements Serializable{
 		return this.numGuests;
 	}
 	
+	public void setNumGuests(int num) {
+		numGuests = num;
+	}
+	
+	public double getDiscount() {
+		return discount;
+	}
+
 	public String getfirstName() {
 		return firstName;
 	}

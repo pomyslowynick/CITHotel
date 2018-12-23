@@ -10,13 +10,14 @@ public class FileStorage {
     public Object readObject(String fileName) {
 		Object o = null;
 		try {
-			FileInputStream fileIn = new FileInputStream(fileName);
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			o = in.readObject();
+			FileInputStream fileInputStream = new FileInputStream(fileName);
+		    ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+		    o = objectInputStream.readObject();
+		    objectInputStream.close(); 
 		} catch (IOException i) {
-			//i.printStackTrace();
+//			i.printStackTrace();
 		} catch (ClassNotFoundException c) {
-			//c.printStackTrace();
+//			c.printStackTrace();
 		}
 		return o;
 	}

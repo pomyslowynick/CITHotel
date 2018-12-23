@@ -1,6 +1,8 @@
 package classes;
 
-public class Payment {
+import java.io.Serializable;
+
+public class Payment implements Serializable{
 	private String date;
 	private Guest guest;
 	private double paymentAmount;

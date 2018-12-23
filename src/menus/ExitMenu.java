@@ -1,9 +1,10 @@
 package menus;
 
+import java.io.Serializable;
 import java.util.Scanner;
 import exception.OutOfRangeException;
 
-public class ExitMenu extends Menu {
+public class ExitMenu extends Menu implements Serializable{
 	private String menuText = "Do you want to save file?\n" 
 							+ "1. Yes\n"
 							+ "2. No";

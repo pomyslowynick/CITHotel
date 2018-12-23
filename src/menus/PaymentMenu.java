@@ -1,8 +1,9 @@
 package menus;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class PaymentMenu extends Menu{
+public class PaymentMenu extends Menu implements Serializable{
 	private String menuText = "Choose an option\n"
 							+ "1. Process a payment\n"
 							+ "2. Show outstanding payments";

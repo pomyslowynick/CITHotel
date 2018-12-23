@@ -1,15 +1,16 @@
 package menus;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-import controller.HotelController;
+import classes.Room;
 import controller.ReservationsController;
 import exception.OutOfRangeException;
 import list.RoomList;
 import list.GuestList;
 import list.ReservationsList;
 
-public class HomeMenu extends Menu{
+public class HomeMenu extends Menu implements Serializable{
 	private String menuText = "Hello Customer! What can we do for you today?\n"
 			  + "1. Manage a reservation\n"
 			  + "2. Display current guests\n"
@@ -30,7 +31,7 @@ public class HomeMenu extends Menu{
 	
 	public void DisplayAvailableRooms(Scanner in, RoomList rooms) {
 		for(Object r:rooms.getList()) {
-			System.out.println(r.toString());
+			System.out.println(((Room) r).getRoomType() + " " + r.toString());
 		}
 		waitForUser();
 	}
