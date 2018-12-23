@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Reservation implements Serializable{
 	private Guest guest;
 	private Room room;
+	private double outStandingPayment;
 	
 	int resID;
 	static int ID = 1;
@@ -30,5 +31,13 @@ public class Reservation implements Serializable{
 	
 	public Room getRoom() {
 		return room;
+	}
+
+	public double getOutStandingPayment() {
+		return outStandingPayment;
+	}
+
+	public void setOutStandingPayment(double outStandingPayment) {
+		this.outStandingPayment = outStandingPayment;
 	}
 }

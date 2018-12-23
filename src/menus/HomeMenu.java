@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Scanner;
 
 import classes.Room;
+import controller.PaymentController;
 import controller.ReservationsController;
 import exception.OutOfRangeException;
 import list.RoomList;
@@ -25,7 +26,6 @@ public class HomeMenu extends Menu implements Serializable{
 		if (userChoice < 0 || userChoice > 5) {
 			throw new OutOfRangeException("Number outside of range!");
 		}
-		
 		return userChoice;
 	}
 	
@@ -48,8 +48,9 @@ public class HomeMenu extends Menu implements Serializable{
 		new ReservationsController(in).handleReservationMenu(option, reservations, guests, rooms);
 	}
 	
-	public void DisplayPaymentMenu(Scanner in) throws OutOfRangeException{
-		new PaymentMenu().HandleMenuOption(in);
+	public void DisplayPaymentMenu(Scanner in, ReservationsList reservations, GuestList guests, RoomList rooms) throws OutOfRangeException{
+		int option = new PaymentMenu().HandleMenuOption(in);
+		new PaymentController(in).handlePaymentMenu(option, reservations, guests, rooms);
 	}
 	
 	public int DisplayExitMenu(Scanner in) throws OutOfRangeException{

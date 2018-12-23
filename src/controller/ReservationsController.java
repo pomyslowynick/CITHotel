@@ -92,9 +92,10 @@ public class ReservationsController implements Serializable{
 		System.out.println("How many days you plan to stay?");
 		int stayDays = in.nextInt();
 		Reservation finalReservation = new Reservation(newGuest, roomCheck);
-		reservations.add(finalReservation);
 		double finalCost = ((roomCheck.getRate() * (peopleNum + 1)) * stayDays) * (1 - newGuest.getDiscount());
 		System.out.println("Final cost: " + finalCost);
+		finalReservation.setOutStandingPayment(finalCost);
+		reservations.add(finalReservation);
 		waitForUser();
 		return 0;
 	}

@@ -15,12 +15,26 @@ public class FileStorage {
 		    o = objectInputStream.readObject();
 		    objectInputStream.close(); 
 		} catch (IOException i) {
-//			i.printStackTrace();
+			i.printStackTrace();
 		} catch (ClassNotFoundException c) {
-//			c.printStackTrace();
+			c.printStackTrace();
 		}
 		return o;
 	}
+    
+    public Object ReadObjectFromFile(String filepath) {
+        try {
+            FileInputStream fileIn = new FileInputStream(filepath);
+            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
+            Object obj = objectIn.readObject();
+            System.out.println("The Object has been read from the file");
+            objectIn.close();
+            return obj;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
 
 	public boolean writeObject(Object o, String fileName) {
 		boolean success = true;
@@ -30,9 +44,11 @@ public class FileStorage {
 			out.writeObject(o);
 			out.close();
 			fileOut.close();
+			System.out.println("The Object  was succesfully written to a file");
 		} catch (IOException i) {
 			i.printStackTrace();
 			success = false;
+			System.out.println("failure");
 		}
 		return success;
 	}

@@ -37,7 +37,7 @@ public class HotelController implements Serializable{
 						break;
 				case 3:	men.DisplayAvailableRooms(in, rooms);
 						break;
-				case 4: men.DisplayPaymentMenu(in);
+				case 4: men.DisplayPaymentMenu(in, reservations, guests, rooms);
 						break;
 				case 5: if (men.DisplayExitMenu(in) == 1) {
 							saveFile();
@@ -69,4 +69,5 @@ public class HotelController implements Serializable{
 	public void saveFile() {
 		new FileStorage().writeObject(this, "storage.ser");
 	}
+	
 }

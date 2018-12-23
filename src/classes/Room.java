@@ -66,6 +66,7 @@ public class Room  implements Serializable{
 		return this.payments;
 	}
 	
+	
 	public String getRoomType() {
 		if(this instanceof Single) {
 			return "Single";
