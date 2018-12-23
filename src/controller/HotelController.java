@@ -5,6 +5,7 @@ import java.util.Scanner;
 import classes.*;
 import exception.OutOfRangeException;
 import list.GuestList;
+import list.ReservationsList;
 import list.RoomList;
 import menus.*;
 import storage.FileStorage;
@@ -12,11 +13,13 @@ import storage.FileStorage;
 public class HotelController implements Serializable{
 	private RoomList rooms;
 	private GuestList guests;
+	private ReservationsList reservations;
 	static Scanner in;
 	
 	public HotelController() {
 		rooms = new RoomList(15);
 		guests = new GuestList(27);
+		reservations = new ReservationsList(15);
 		in = new Scanner(System.in);
 		
 	}
@@ -28,7 +31,8 @@ public class HotelController implements Serializable{
 			try {
 				userChoice = men.HandleMenuOption(in);
 				switch(userChoice) {
-				case 1: men.DisplayReservationMenu(in);
+				case 1: men.DisplayReservationMenu(in, reservations);
+						
 						break;
 				case 2: men.DisplayGuests(in, guests);
 						break;

@@ -17,4 +17,5 @@ public class ReservationsList extends ObjectList{
 		int tempIndex = list.indexOf(reservation);
 		this.remove(tempIndex);
 	}
+
 }

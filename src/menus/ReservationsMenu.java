@@ -15,17 +15,10 @@ public class ReservationsMenu extends Menu{
 		setMenuText(menuText);
 		DisplayMenu(in);
 		int userChoice = in.nextInt();
-		if (userChoice < 0 || userChoice > 3) {
+		if (userChoice < 1 || userChoice > 3) {
 			throw new OutOfRangeException("Number outside of range!");
 		}
 		return userChoice;
-	}
-	
-	public void DisplayReservations(Scanner in, ReservationsList reservations) {
-		for(Object r:reservations.getList()) {
-			System.out.println(r.toString());
-		}
-		waitForUser();
 	}
 
 }

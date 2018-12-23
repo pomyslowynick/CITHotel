@@ -3,9 +3,11 @@ package menus;
 import java.util.Scanner;
 
 import controller.HotelController;
+import controller.ReservationsController;
 import exception.OutOfRangeException;
 import list.RoomList;
 import list.GuestList;
+import list.ReservationsList;
 
 public class HomeMenu extends Menu{
 	private String menuText = "Hello Customer! What can we do for you today?\n"
@@ -40,8 +42,9 @@ public class HomeMenu extends Menu{
 		waitForUser();
 	}
 	
-	public void DisplayReservationMenu(Scanner in) throws OutOfRangeException {
-		new ReservationsMenu().HandleMenuOption(in);
+	public void DisplayReservationMenu(Scanner in, ReservationsList reservations) throws OutOfRangeException {
+		int option = new ReservationsMenu().HandleMenuOption(in);
+		new ReservationsController(in).handleReservationMenu(option, reservations);
 	}
 	
 	public void DisplayPaymentMenu(Scanner in) throws OutOfRangeException{
