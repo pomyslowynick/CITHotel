@@ -1,5 +1,6 @@
 package menus;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import exception.OutOfRangeException;
@@ -13,7 +14,7 @@ public class ReservationsMenu extends Menu{
 	Scanner in = new Scanner(System.in);
 	
 	@Override
-	public int HandleMenuOption() throws OutOfRangeException {
+	public int HandleMenuOption() throws OutOfRangeException, InputMismatchException {
 		setMenuText(menuText);
 		DisplayMenu();
 		int userChoice = in.nextInt();

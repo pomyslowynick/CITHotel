@@ -1,6 +1,7 @@
 package menus;
 
 import java.io.Serializable;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import classes.Room;
@@ -44,7 +45,7 @@ public class HomeMenu extends Menu implements Serializable{
 		waitForUser();
 	}
 	
-	public void DisplayReservationMenu(ReservationsList reservations, GuestList guests, RoomList rooms) throws OutOfRangeException {
+	public void DisplayReservationMenu(ReservationsList reservations, GuestList guests, RoomList rooms) throws OutOfRangeException, InputMismatchException {
 		int option = new ReservationsMenu().HandleMenuOption();
 		new ReservationsController().handleReservationMenu(option, reservations, guests, rooms);
 	}

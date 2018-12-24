@@ -77,7 +77,6 @@ public class ReservationsController implements Serializable{
 	            			newGuest.setNumGuests(peopleNum);
 	            			for(int i = 0; i < peopleNum; i ++) {
 	            				System.out.println("Provide details for other guests\n");
-	            				in.nextLine();
 	            				Guest additionalGuest = addGuest(guests, true);
 	            				roomCheck.addGuest(additionalGuest); 
 	            				innerLoopCond = false;
@@ -97,8 +96,6 @@ public class ReservationsController implements Serializable{
 		System.out.println("Final cost: " + finalCost);
 		finalReservation.setOutStandingPayment(finalCost);
 		reservations.add(finalReservation);
-//		loopConditionOccupants = false;
-		System.out.println(finalReservation.getOutStandingPayment());
 		waitForUser();
 		waitForUser();
 		return 0;
@@ -118,9 +115,12 @@ public class ReservationsController implements Serializable{
 		            } else if (studOrLec == 2) {
 		            	newGuest = new Lecturer();
 		            	newGuest = (Lecturer) newGuest;
-		            } else {
+		            } 
+		            else {
 		            	throw new InputMismatchException();
 		            }
+	        	}else {
+	        		newGuest = new Guest(.0);
 	        	}
 	            in.nextLine();
 	            System.out.println("What's your name?");
