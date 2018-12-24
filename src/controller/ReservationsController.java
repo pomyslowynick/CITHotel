@@ -27,9 +27,9 @@ public class ReservationsController implements Serializable{
 		switch(userChoice) {
 		case 1: addReservation(reservations, guests, rooms);
 				break;
-		case 2: cancelReservation(reservations, guests, rooms);
+		case 2: cancelReservation(reservations, guests);
 				break;
-		case 3: displayReservations(in, reservations); 
+		case 3: displayReservations(reservations); 
 				break;
 		}
 		
@@ -42,11 +42,13 @@ public class ReservationsController implements Serializable{
 		}
 		
 		int peopleNum = 0;
-		boolean loopCondition = true;
-		boolean loop2 = true;
+		boolean loopConditionMasterGuest = true;
+		boolean loopConditionOccupants = true;
 		Guest newGuest = addGuest(guests);
 		Room roomCheck = null;
-		while (loopCondition) {
+		double finalCost;
+		
+		while (loopConditionMasterGuest) {
 			try {
 	            System.out.println("What type of room are you interested in?\n"
 				            		+ "1. Single, 150 euro per night.\n"
@@ -54,13 +56,13 @@ public class ReservationsController implements Serializable{
 				            		+ "3. Suite 75 euro per person, per night.");
 	            int roomType = in.nextInt();
 	            roomCheck = bookRoom(newGuest, rooms, roomType);
-	            if (roomCheck != null) {loopCondition = false;}
+	            if (roomCheck != null) {loopConditionMasterGuest = false;}
 			}catch (InputMismatchException e) {
 	            System.out.println("\n" + e + "\nhas happened, make sure to input correct values.\n Click enter to continue...");
 	            waitForUser();
 			}
 		}
-		while (loop2) {
+		while (loopConditionOccupants) {
 			try {
 				int maxOccup = roomCheck.getMaxOccupancy();
 	            if (!(roomCheck instanceof Single)) {
@@ -83,7 +85,8 @@ public class ReservationsController implements Serializable{
 	            		}
 	            	}
 	            }
-	            loop2 = false;
+	    		loopConditionOccupants = false;
+
 			 
 	        } catch (InputMismatchException e) {
 	            System.out.println("\n" + e + "\nhas happened, make sure to input correct values.\n Click enter to continue...");
@@ -92,10 +95,11 @@ public class ReservationsController implements Serializable{
 		System.out.println("How many days you plan to stay?");
 		int stayDays = in.nextInt();
 		Reservation finalReservation = new Reservation(newGuest, roomCheck);
-		double finalCost = ((roomCheck.getRate() * (peopleNum + 1)) * stayDays) * (1 - newGuest.getDiscount());
+		finalCost = ((roomCheck.getRate() * (peopleNum + 1)) * stayDays) * (1 - newGuest.getDiscount());
 		System.out.println("Final cost: " + finalCost);
 		finalReservation.setOutStandingPayment(finalCost);
 		reservations.add(finalReservation);
+//		loopConditionOccupants = false;
 		System.out.println(finalReservation.getOutStandingPayment());
 		waitForUser();
 		return 0;
@@ -167,30 +171,36 @@ public class ReservationsController implements Serializable{
 		return null;
 	}
 	
-	public void cancelReservation(ReservationsList reservations, GuestList guests, RoomList rooms) {
-		System.out.println("Input id of your reservation: ");
-		int resID = in.nextInt();
-		Reservation check = reservations.getReservationByID(resID);
-		try {
-			if(check != null) {
-				Guest tempGuest = check.getGuest();
-				int guestIndex = guests.getIndex(check.getGuest());
-				for(int i = 0; i <= tempGuest.getNumGuests();i++) {
-					guests.remove(guestIndex);
-				}
-				check.getRoom().makeAvailable();
-				reservations.cancelReservation(check);
+	public void cancelReservation(ReservationsList reservations, GuestList guests) {
+		boolean loopCondition = true;
+		while(loopCondition) {
+			try {
+				System.out.println("Input id of your reservation: ");
+				int resID = in.nextInt();
+				Reservation check = reservations.getReservationByID(resID);
 				
-			}else {
-				System.out.println("ID not found");
+				if(check != null) {
+					Guest tempGuest = check.getGuest();
+					int guestIndex = guests.getIndex(check.getGuest());
+					for(int i = 0; i <= tempGuest.getNumGuests();i++) {
+						guests.remove(guestIndex);
+					}
+					check.getRoom().makeAvailable();
+					reservations.cancelReservation(check);
+					loopCondition = false;
+					
+				}else {
+					System.out.println("ID not found");
+					loopCondition = false;
+				}
+			}catch(InputMismatchException e) {
+				System.out.println("\n" + e + "\nhas happened, make sure to input correct values.");
+				waitForUser();
 			}
-		}catch(InputMismatchException e) {
-			System.out.println("\n" + e + "\nhas happened, make sure to input correct values.");
-            waitForUser();
 		}
 
 	}
-	public void displayReservations(Scanner in, ReservationsList reservations) {
+	public void displayReservations(ReservationsList reservations) {
 		for(Object r:reservations.getList()) {
 			System.out.println(r.toString());
 		}
@@ -199,7 +209,6 @@ public class ReservationsController implements Serializable{
 	
 	public void waitForUser(){
 		System.out.println("Press ENTER to get back to main menu");
-		in.nextLine();
 		in.nextLine();
 	
 	}

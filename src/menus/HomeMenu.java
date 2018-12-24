@@ -49,9 +49,9 @@ public class HomeMenu extends Menu implements Serializable{
 		new ReservationsController().handleReservationMenu(option, reservations, guests, rooms);
 	}
 	
-	public void DisplayPaymentMenu(ReservationsList reservations, GuestList guests, RoomList rooms) throws OutOfRangeException{
+	public void DisplayPaymentMenu(ReservationsList reservations) throws OutOfRangeException{
 		int option = new PaymentMenu().HandleMenuOption();
-		new PaymentController().handlePaymentMenu(option, reservations, guests, rooms);
+		new PaymentController().handlePaymentMenu(option, reservations);
 	}
 	
 	public int DisplayExitMenu() throws OutOfRangeException{

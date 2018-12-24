@@ -40,7 +40,7 @@ public class HotelController implements Serializable{
 						break;
 				case 3:	men.DisplayAvailableRooms(rooms);
 						break;
-				case 4: men.DisplayPaymentMenu(reservations, guests, rooms);
+				case 4: men.DisplayPaymentMenu(reservations);
 						break;
 				case 5: if (men.DisplayExitMenu() == 1) {
 							saveFile();

@@ -15,7 +15,7 @@ public class PaymentController implements Serializable{
 		this.in =new Scanner(System.in);
 	}
 	
-	public void handlePaymentMenu(int option, ReservationsList reservations, GuestList guests, RoomList rooms) {
+	public void handlePaymentMenu(int option, ReservationsList reservations) {
 		int userChoice = option;
 	
 		switch(userChoice) {
@@ -46,10 +46,8 @@ public class PaymentController implements Serializable{
 			if(!(tempPay < 0)) {
 				System.out.println(tempC.toString() + " due to pay " + tempPay);
 			}
-			in.nextLine();
-			System.out.println("Clicking anything to continue");
-			in.nextLine();
-
 		}
+		System.out.println("Click anything to continue");
+		in.nextLine();
 	}
 }
