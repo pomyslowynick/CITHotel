@@ -44,7 +44,7 @@ public class ReservationsController implements Serializable{
 		int peopleNum = 0;
 		boolean loopConditionMasterGuest = true;
 		boolean loopConditionOccupants = true;
-		Guest newGuest = addGuest(guests);
+		Guest newGuest = addGuest(guests, false);
 		Room roomCheck = null;
 		double finalCost;
 		
@@ -78,7 +78,7 @@ public class ReservationsController implements Serializable{
 	            			for(int i = 0; i < peopleNum; i ++) {
 	            				System.out.println("Provide details for other guests\n");
 	            				in.nextLine();
-	            				Guest additionalGuest = addGuest(guests);
+	            				Guest additionalGuest = addGuest(guests, true);
 	            				roomCheck.addGuest(additionalGuest); 
 	            				innerLoopCond = false;
 	            			}
@@ -86,8 +86,6 @@ public class ReservationsController implements Serializable{
 	            	}
 	            }
 	    		loopConditionOccupants = false;
-
-			 
 	        } catch (InputMismatchException e) {
 	            System.out.println("\n" + e + "\nhas happened, make sure to input correct values.\n Click enter to continue...");
 	        }
@@ -102,25 +100,28 @@ public class ReservationsController implements Serializable{
 //		loopConditionOccupants = false;
 		System.out.println(finalReservation.getOutStandingPayment());
 		waitForUser();
+		waitForUser();
 		return 0;
 	}
 	
-	public Guest addGuest(GuestList guests) {
+	public Guest addGuest(GuestList guests, boolean additional) {
 		Guest newGuest = null;
 		boolean loopCondition = true;
 		while(loopCondition) {
 	        try {
-	            System.out.println("Are you a student or lecturer?\n"
-	            				 + "1 for student 2 for lecturer");
-	            int studOrLec = in.nextInt();
-	            if(studOrLec == 1) {
-	            	newGuest = new Student();
-	            } else if (studOrLec == 2) {
-	            	newGuest = new Lecturer();
-	            	newGuest = (Lecturer) newGuest;
-	            } else {
-	            	throw new InputMismatchException();
-	            }
+	        	if (!additional) {
+		            System.out.println("Are you a student or lecturer?\n"
+		            				 + "1 for student 2 for lecturer");
+		            int studOrLec = in.nextInt();
+		            if(studOrLec == 1) {
+		            	newGuest = new Student();
+		            } else if (studOrLec == 2) {
+		            	newGuest = new Lecturer();
+		            	newGuest = (Lecturer) newGuest;
+		            } else {
+		            	throw new InputMismatchException();
+		            }
+	        	}
 	            in.nextLine();
 	            System.out.println("What's your name?");
 	            newGuest.setfirstName(in.nextLine()); 
