@@ -8,11 +8,7 @@ public class Room  implements Serializable{
 	private int totalOccupants;
 	private double rate;
 	private int max_guests;
-	private ArrayList<Payment> payments;
-	
-	public Room() {
-		this.payments = new ArrayList<Payment>();
-	}
+
 	public double getRate() {
 		return this.rate;
 	}
@@ -48,22 +44,6 @@ public class Room  implements Serializable{
 
 	public String toString() {
 		return "Room Available :" + (this.isAvailable() ? " Yes":" No");
-	}
-	
-	public void setRoomPaid(double amount) {
-		double remaining = this.getRate() - amount;
-		Payment pay = new Payment("2018-11-30",this.guest,amount,
-									remaining,this.totalOccupants);
-		this.addPayment(pay);
-		this.removeGuest();
-	}
-	
-	private void addPayment(Payment payment) {
-		this.payments.add(payment);
-	}
-	
-	public ArrayList<Payment> getPayments(){
-		return this.payments;
 	}
 	
 	

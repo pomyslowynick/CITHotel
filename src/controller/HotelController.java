@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import classes.*;
 import exception.OutOfRangeException;
@@ -15,8 +16,10 @@ public class HotelController implements Serializable{
 	private GuestList guests;
 	private ReservationsList reservations;
 	static Scanner in;
+	FileStorage store;
 	
-	public HotelController() {
+	public HotelController(FileStorage store) {
+		this.store = store;
 		rooms = new RoomList(15);
 		guests = new GuestList(27);
 		reservations = new ReservationsList(15);
@@ -46,12 +49,17 @@ public class HotelController implements Serializable{
 			} catch(OutOfRangeException error) {
 				System.out.println(error);
 				men.waitForUser();
+			} catch(InputMismatchException error) {
+				System.out.println(error);
+				in.nextLine();
+				System.out.println("Press anything to continue...");
+				in.nextLine();
+
 			}
 		}
 	}
 	
 	public void setupRooms() {
-		System.out.println("Loading rooms");
 		for(int i = 0; i < 3; i++) {			
 			rooms.add(new Suite());
 		}
@@ -67,7 +75,7 @@ public class HotelController implements Serializable{
 	}
 	
 	public void saveFile() {
-		new FileStorage().writeObject(this, "storage.ser");
+		store.writeObject(this, "storage.ser");
 	}
 	
 }

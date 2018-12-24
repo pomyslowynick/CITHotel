@@ -5,8 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class FileStorage {
+public class FileStorage implements Serializable{
     public Object readObject(String fileName) {
 		Object o = null;
 		try {
@@ -14,6 +15,7 @@ public class FileStorage {
 		    ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 		    o = objectInputStream.readObject();
 		    objectInputStream.close(); 
+		    fileInputStream.close();
 		} catch (IOException i) {
 			i.printStackTrace();
 		} catch (ClassNotFoundException c) {
@@ -21,20 +23,6 @@ public class FileStorage {
 		}
 		return o;
 	}
-    
-    public Object ReadObjectFromFile(String filepath) {
-        try {
-            FileInputStream fileIn = new FileInputStream(filepath);
-            ObjectInputStream objectIn = new ObjectInputStream(fileIn);
-            Object obj = objectIn.readObject();
-            System.out.println("The Object has been read from the file");
-            objectIn.close();
-            return obj;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return null;
-        }
-    }
 
 	public boolean writeObject(Object o, String fileName) {
 		boolean success = true;

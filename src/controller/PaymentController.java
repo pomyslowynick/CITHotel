@@ -19,23 +19,37 @@ public class PaymentController implements Serializable{
 		int userChoice = option;
 	
 		switch(userChoice) {
-		case 1: processPayment();
+		case 1: processPayment(reservations);
 				break;
 		case 2: showOutsandingPayments(reservations);
 				break;
 		}
 	}
 	
-	public void processPayment() {
+	public void processPayment(ReservationsList reservations) {
+		System.out.println("Input your reservation ID");
+		int userID = in.nextInt();
+		Reservation userRes = reservations.getReservationByID(userID);
+		double due = userRes.getOutStandingPayment();
+		System.out.println("You owe " + due + " euro to pay. Pay now?"
+							+ "Input the amount you want to transfer");
+		double userTransaction = in.nextDouble();
+		userRes.setOutStandingPayment(due - userTransaction);
+		
+		
 	}
 	
 	public void showOutsandingPayments(ReservationsList reservations) {
 		for(Object c:reservations.getList()) {
 			Reservation tempC = ((Reservation) c);
 			double tempPay = tempC.getOutStandingPayment();
-			if(!(tempPay > 0)) {
-				System.out.println(tempC.toString() + " " + tempPay);
+			if(!(tempPay < 0)) {
+				System.out.println(tempC.toString() + " due to pay " + tempPay);
 			}
+			in.nextLine();
+			System.out.println("Clicking anything to continue");
+			in.nextLine();
+
 		}
 	}
 }

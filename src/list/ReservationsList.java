@@ -1,9 +1,11 @@
 package list;
 
+import java.io.Serializable;
+
 import classes.Guest;
 import classes.Reservation;
 
-public class ReservationsList extends ObjectList{
+public class ReservationsList extends ObjectList implements Serializable{
 
 	public ReservationsList(int maximum) {
 		super(maximum);
