@@ -18,10 +18,11 @@ public class HomeMenu extends Menu implements Serializable{
 			  + "3. Display all available rooms\n"
 			  + "4. Process payment\n"
 			  + "5. Exit";
+	Scanner in = new Scanner(System.in);
 	@Override
-	public int HandleMenuOption(Scanner in) throws OutOfRangeException {
+	public int HandleMenuOption() throws OutOfRangeException {
 		setMenuText(menuText);
-		DisplayMenu(in);
+		DisplayMenu();
 		int userChoice = in.nextInt();
 		if (userChoice < 0 || userChoice > 5) {
 			throw new OutOfRangeException("Number outside of range!");
@@ -29,31 +30,31 @@ public class HomeMenu extends Menu implements Serializable{
 		return userChoice;
 	}
 	
-	public void DisplayAvailableRooms(Scanner in, RoomList rooms) {
+	public void DisplayAvailableRooms(RoomList rooms) {
 		for(Object r:rooms.getList()) {
 			System.out.println(((Room) r).getRoomType() + " " + r.toString());
 		}
 		waitForUser();
 	}
 	
-	public void DisplayGuests(Scanner in, GuestList guests) {
+	public void DisplayGuests(GuestList guests) {
 		for(Object r:guests.getList()) {
 			System.out.println(r.toString());
 		}
 		waitForUser();
 	}
 	
-	public void DisplayReservationMenu(Scanner in, ReservationsList reservations, GuestList guests, RoomList rooms) throws OutOfRangeException {
-		int option = new ReservationsMenu().HandleMenuOption(in);
-		new ReservationsController(in).handleReservationMenu(option, reservations, guests, rooms);
+	public void DisplayReservationMenu(ReservationsList reservations, GuestList guests, RoomList rooms) throws OutOfRangeException {
+		int option = new ReservationsMenu().HandleMenuOption();
+		new ReservationsController().handleReservationMenu(option, reservations, guests, rooms);
 	}
 	
-	public void DisplayPaymentMenu(Scanner in, ReservationsList reservations, GuestList guests, RoomList rooms) throws OutOfRangeException{
-		int option = new PaymentMenu().HandleMenuOption(in);
-		new PaymentController(in).handlePaymentMenu(option, reservations, guests, rooms);
+	public void DisplayPaymentMenu(ReservationsList reservations, GuestList guests, RoomList rooms) throws OutOfRangeException{
+		int option = new PaymentMenu().HandleMenuOption();
+		new PaymentController().handlePaymentMenu(option, reservations, guests, rooms);
 	}
 	
-	public int DisplayExitMenu(Scanner in) throws OutOfRangeException{
-		return new ExitMenu().HandleMenuOption(in);
+	public int DisplayExitMenu() throws OutOfRangeException{
+		return new ExitMenu().HandleMenuOption();
 	}
 }

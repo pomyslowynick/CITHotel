@@ -11,8 +11,8 @@ import list.RoomList;
 public class PaymentController implements Serializable{
 	Scanner in;
 	
-	public PaymentController(Scanner in) {
-		this.in = in;
+	public PaymentController() {
+		this.in =new Scanner(System.in);
 	}
 	
 	public void handlePaymentMenu(int option, ReservationsList reservations, GuestList guests, RoomList rooms) {

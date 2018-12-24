@@ -10,10 +10,12 @@ public class ReservationsMenu extends Menu{
 							+ "1. Add new reservation\n"
 							+ "2. Cancel a reservation\n"
 							+ "3. Display all reservations";
+	Scanner in = new Scanner(System.in);
+	
 	@Override
-	public int HandleMenuOption(Scanner in) throws OutOfRangeException {
+	public int HandleMenuOption() throws OutOfRangeException {
 		setMenuText(menuText);
-		DisplayMenu(in);
+		DisplayMenu();
 		int userChoice = in.nextInt();
 		if (userChoice < 1 || userChoice > 3) {
 			throw new OutOfRangeException("Number outside of range!");

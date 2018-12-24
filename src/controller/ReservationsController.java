@@ -19,8 +19,8 @@ import list.RoomList;
 public class ReservationsController implements Serializable{
 	Scanner in;
 	
-	public ReservationsController(Scanner in) {
-		this.in = in;
+	public ReservationsController() {
+		this.in = new Scanner(System.in);
 	}
 	
 	public void handleReservationMenu(int userChoice, ReservationsList reservations, GuestList guests, RoomList rooms) {

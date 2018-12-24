@@ -7,7 +7,7 @@ import exception.OutOfRangeException;
 public abstract class Menu {
 	public String menuText;
 	
-	public void DisplayMenu(Scanner in){
+	public void DisplayMenu(){
 		System.out.println(this.menuText);
 	}
 	
@@ -19,12 +19,11 @@ public abstract class Menu {
 		try {
 			System.in.read();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	public abstract int HandleMenuOption(Scanner in) throws OutOfRangeException;
+	public abstract int HandleMenuOption() throws OutOfRangeException;
 		
 	
 }

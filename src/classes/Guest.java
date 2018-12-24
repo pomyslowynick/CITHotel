@@ -49,6 +49,6 @@ public class Guest  implements Serializable{
 	}
 	
 	public String toString() {
-		return firstName + " " + lastName + " Phone Number: " + phoneNumber + " " + (this instanceof Student ? "Student" : "Lecturer");
+		return firstName + " " + lastName + ", Phone Number: " + phoneNumber + ", " + (this instanceof Student ? "Student" : "Lecturer");
 	}
 }

@@ -32,17 +32,17 @@ public class HotelController implements Serializable{
 		int userChoice = 0;
 		while(userChoice != 5) {
 			try {
-				userChoice = men.HandleMenuOption(in);
+				userChoice = men.HandleMenuOption();
 				switch(userChoice) {
-				case 1: men.DisplayReservationMenu(in, reservations, guests, rooms);
+				case 1: men.DisplayReservationMenu(reservations, guests, rooms);
 						break;
-				case 2: men.DisplayGuests(in, guests);
+				case 2: men.DisplayGuests(guests);
 						break;
-				case 3:	men.DisplayAvailableRooms(in, rooms);
+				case 3:	men.DisplayAvailableRooms(rooms);
 						break;
-				case 4: men.DisplayPaymentMenu(in, reservations, guests, rooms);
+				case 4: men.DisplayPaymentMenu(reservations, guests, rooms);
 						break;
-				case 5: if (men.DisplayExitMenu(in) == 1) {
+				case 5: if (men.DisplayExitMenu() == 1) {
 							saveFile();
 						}
 				}
