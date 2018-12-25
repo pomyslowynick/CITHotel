@@ -99,6 +99,7 @@ public class ReservationsController implements Serializable{
 		System.out.println("Final cost: " + finalCost);
 		finalReservation.setOutStandingPayment(finalCost);
 		reservations.add(finalReservation);
+		reservations.giveID(finalReservation);
 		waitForUser();
 		waitForUser();
 	}

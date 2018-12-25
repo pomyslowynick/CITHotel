@@ -6,18 +6,19 @@ public class Reservation implements Serializable{
 	private Guest guest;
 	private Room room;
 	private double outStandingPayment;
-
 	int resID;
-	static int ID = 1;
+	
 	public Reservation(Guest guest, Room room) {
 		this.guest = guest;
-		this.resID = ID;
 		this.room = room;
-		ID++;
 	}
 
 	public int getID() {
 		return this.resID;
+	}
+	
+	public void setID(int id) {
+		this.resID = id;
 	}
 
 	public String toString() {
