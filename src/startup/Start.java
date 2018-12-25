@@ -21,8 +21,4 @@ public class Start implements Serializable {
 		}
 		
 	}
-	
-	public HotelController getController() {
-		return control;
-	}
 }

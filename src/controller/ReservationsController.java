@@ -42,26 +42,9 @@ public class ReservationsController implements Serializable{
 		}
 		
 		int peopleNum = 0;
-		boolean loopConditionMasterGuest = true;
 		boolean loopConditionOccupants = true;
 		Guest newGuest = addGuest(guests, false);
-		Room roomCheck = null;
-		double finalCost;
-		
-		while (loopConditionMasterGuest) {
-			try {
-	            System.out.println("What type of room are you interested in?\n"
-				            		+ "1. Single, 150 euro per night.\n"
-				            		+ "2. Double 100 euro per person, per night.\n"
-				            		+ "3. Suite 75 euro per person, per night.");
-	            int roomType = in.nextInt();
-	            roomCheck = bookRoom(newGuest, rooms, roomType);
-	            if (roomCheck != null) {loopConditionMasterGuest = false;}
-			}catch (InputMismatchException e) {
-	            System.out.println("\n" + e + "\nhas happened, make sure to input correct values.\n Click enter to continue...");
-	            waitForUser();
-			}
-		}
+		Room roomCheck = chooseTypeRoom(newGuest, rooms);
 		while (loopConditionOccupants) {
 			try {
 				int maxOccup = roomCheck.getMaxOccupancy();
@@ -72,6 +55,8 @@ public class ReservationsController implements Serializable{
 	            		peopleNum = in.nextInt();
 	            		if (maxOccup < peopleNum + 1) {
 	            			System.out.println("You can't have more than " + maxOccup + ",counting yourself, in your room");
+	            		} else if (peopleNum <= 0) {
+	            			innerLoopCond = false;
 	            		}
 	            		else {
 	            			newGuest.setNumGuests(peopleNum);
@@ -89,16 +74,49 @@ public class ReservationsController implements Serializable{
 	            System.out.println("\n" + e + "\nhas happened, make sure to input correct values.\n Click enter to continue...");
 	        }
 		}
-		System.out.println("How many days you plan to stay?");
-		int stayDays = in.nextInt();
+		makeReservation(reservations, newGuest, roomCheck, peopleNum);
+		return 0;
+	}
+	public void makeReservation(ReservationsList reservations, Guest newGuest, Room roomCheck, int peopleNum) {
+		boolean loopCondition = true;
+		int stayDays = 0;
+		while(loopCondition) {
+			try {
+				System.out.println("How many days you plan to stay?");
+				stayDays = in.nextInt();
+				loopCondition = false;
+			}catch(InputMismatchException error) {
+				System.out.println("Input an integer number.");
+			}
+		}
 		Reservation finalReservation = new Reservation(newGuest, roomCheck);
-		finalCost = ((roomCheck.getRate() * (peopleNum + 1)) * stayDays) * (1 - newGuest.getDiscount());
+		double finalCost = ((roomCheck.getRate() * (peopleNum + 1)) * stayDays) * (1 - newGuest.getDiscount());
 		System.out.println("Final cost: " + finalCost);
 		finalReservation.setOutStandingPayment(finalCost);
 		reservations.add(finalReservation);
 		waitForUser();
 		waitForUser();
-		return 0;
+	}
+	
+	public Room chooseTypeRoom(Guest newGuest, RoomList rooms) {
+		
+		Room roomCheck = null;
+		boolean loopConditionMasterGuest = true;
+		while (loopConditionMasterGuest) {
+			try {
+				System.out.println("What type of room are you interested in?\n"
+						+ "1. Single, 150 euro per night.\n"
+						+ "2. Double 100 euro per person, per night.\n"
+						+ "3. Suite 75 euro per person, per night.");
+				int roomType = in.nextInt();
+				roomCheck = bookRoom(newGuest, rooms, roomType);
+				if (roomCheck != null) {loopConditionMasterGuest = false;}
+			}catch (InputMismatchException e) {
+				System.out.println("\n" + e + "\nhas happened, make sure to input correct values.\n Click enter to continue...");
+				waitForUser();
+			}
+		}
+		return roomCheck;
 	}
 	
 	public Guest addGuest(GuestList guests, boolean additional) {
