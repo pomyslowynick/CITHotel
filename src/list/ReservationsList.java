@@ -6,7 +6,7 @@ import classes.Guest;
 import classes.Reservation;
 
 public class ReservationsList extends ObjectList implements Serializable{
-	static int ID = 100;
+	int ID = 100;
 	
 	public ReservationsList(int maximum) {
 		super(maximum);
