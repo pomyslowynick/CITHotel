@@ -8,11 +8,11 @@ import list.ReservationsList;
 
 public class ReservationsMenu extends Menu{
 	private String menuText = "Choose an option:\n"
-							+ "1. Add new reservation\n"
-							+ "2. Cancel a reservation\n"
-							+ "3. Display all reservations";
+			+ "1. Add new reservation\n"
+			+ "2. Cancel a reservation\n"
+			+ "3. Display all reservations";
 	Scanner in = new Scanner(System.in);
-	
+
 	@Override
 	public int HandleMenuOption() throws OutOfRangeException, InputMismatchException {
 		setMenuText(menuText);

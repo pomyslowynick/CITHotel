@@ -10,11 +10,11 @@ public class RoomList extends ObjectList {
 	public RoomList(int maximum) {
 		super(maximum);
 	}
-	
+
 	public void addRoom(Room room) {
 		this.add(room);
 	}
-	
+
 	public boolean anythingAvailable() {
 		for (Object c:list) {
 			if(((Room) c).isAvailable()) {
@@ -31,7 +31,7 @@ public class RoomList extends ObjectList {
 		}
 		return null;
 	}
-	
+
 	public DoubleRoom getAvailableDouble() {
 		for (int i = 3; i <= 8; i++) {
 			if(((Room) list.get(i)).isAvailable()) {
@@ -40,7 +40,7 @@ public class RoomList extends ObjectList {
 		}
 		return null;
 	}
-	
+
 	public Suite getAvailableSuite() {
 		for (int i = 0; i <= 2; i++) {
 			if(((Room) list.get(i)).isAvailable()) {

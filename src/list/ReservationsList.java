@@ -10,16 +10,16 @@ public class ReservationsList extends ObjectList implements Serializable{
 	public ReservationsList(int maximum) {
 		super(maximum);
 	}
-	
+
 	public void addReservation(Reservation reservation) {
 		this.add(reservation);
 	}
-	
+
 	public void cancelReservation(Reservation reservation) {
 		int tempIndex = list.indexOf(reservation);
 		this.remove(tempIndex);
 	}
-	
+
 	public Reservation getReservationByID(int id) {
 		for (Object r:list) {
 			if (((Reservation) r).getID() == id) {
@@ -28,6 +28,6 @@ public class ReservationsList extends ObjectList implements Serializable{
 		}
 		return null;
 	}
-	
+
 
 }

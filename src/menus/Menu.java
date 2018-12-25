@@ -6,11 +6,11 @@ import exception.OutOfRangeException;
 
 public abstract class Menu {
 	public String menuText;
-	
+
 	public void DisplayMenu(){
 		System.out.println(this.menuText);
 	}
-	
+
 	public void setMenuText(String menuText) {
 		this.menuText = menuText;
 	}
@@ -24,6 +24,6 @@ public abstract class Menu {
 	}
 
 	public abstract int HandleMenuOption() throws OutOfRangeException;
-		
-	
+
+
 }

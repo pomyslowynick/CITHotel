@@ -7,8 +7,8 @@ import exception.OutOfRangeException;
 
 public class PaymentMenu extends Menu implements Serializable{
 	private String menuText = "Choose an option\n"
-							+ "1. Process a payment\n"
-							+ "2. Show outstanding payments";
+			+ "1. Process a payment\n"
+			+ "2. Show outstanding payments";
 	Scanner in = new Scanner(System.in);
 	@Override
 	public int HandleMenuOption() throws OutOfRangeException {

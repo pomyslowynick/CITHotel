@@ -17,16 +17,16 @@ public class HotelController implements Serializable{
 	private ReservationsList reservations;
 	static Scanner in;
 	FileStorage store;
-	
+
 	public HotelController(FileStorage store) {
 		this.store = store;
 		rooms = new RoomList(15);
 		guests = new GuestList(27);
 		reservations = new ReservationsList(15);
 		in = new Scanner(System.in);
-		
+
 	}
-	
+
 	public void handleHomeMenu() {
 		HomeMenu men = new HomeMenu();
 		int userChoice = 0;
@@ -35,16 +35,16 @@ public class HotelController implements Serializable{
 				userChoice = men.HandleMenuOption();
 				switch(userChoice) {
 				case 1: men.DisplayReservationMenu(reservations, guests, rooms);
-						break;
+				break;
 				case 2: men.DisplayGuests(guests);
-						break;
+				break;
 				case 3:	men.DisplayAvailableRooms(rooms);
-						break;
+				break;
 				case 4: men.DisplayPaymentMenu(reservations);
-						break;
+				break;
 				case 5: if (men.DisplayExitMenu() == 1) {
-							saveFile();
-						}
+					saveFile();
+				}
 				}
 			} catch(OutOfRangeException error) {
 				System.out.println(error);
@@ -58,24 +58,24 @@ public class HotelController implements Serializable{
 			}
 		}
 	}
-	
+
 	public void setupRooms() {
 		for(int i = 0; i < 3; i++) {			
 			rooms.add(new Suite());
 		}
-		
+
 		for(int i = 0; i < 6; i++) {
 			rooms.add(new DoubleRoom());
 		}
-		
+
 		for(int i = 0; i < 6; i++) {
 			rooms.add(new Single());
 		}
 		this.handleHomeMenu();
 	}
-	
+
 	public void saveFile() {
 		store.writeObject(this, "storage.ser");
 	}
-	
+
 }

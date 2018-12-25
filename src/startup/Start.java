@@ -13,12 +13,12 @@ public class Start implements Serializable {
 		try {//load controller object from file and continue from last save
 			control = (HotelController)store.readObject("storage.ser"); 
 			control.handleHomeMenu();
-	        System.out.println(control);
+			System.out.println(control);
 		}
 		catch(Exception e) {//controller not found. start from scratch
 			control = new HotelController(store);
 			control.setupRooms();
 		}
-		
+
 	}
 }

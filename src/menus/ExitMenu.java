@@ -6,8 +6,8 @@ import exception.OutOfRangeException;
 
 public class ExitMenu extends Menu implements Serializable{
 	private String menuText = "Do you want to save file?\n" 
-							+ "1. Yes\n"
-							+ "2. No";
+			+ "1. Yes\n"
+			+ "2. No";
 	Scanner in = new Scanner(System.in);
 	@Override
 	public int HandleMenuOption() throws OutOfRangeException {

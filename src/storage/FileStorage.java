@@ -8,14 +8,14 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class FileStorage implements Serializable{
-    public Object readObject(String fileName) {
+	public Object readObject(String fileName) {
 		Object o = null;
 		try {
 			FileInputStream fileInputStream = new FileInputStream(fileName);
-		    ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-		    o = objectInputStream.readObject();
-		    objectInputStream.close(); 
-		    fileInputStream.close();
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+			o = objectInputStream.readObject();
+			objectInputStream.close(); 
+			fileInputStream.close();
 		} catch (IOException i) {
 			i.printStackTrace();
 		} catch (ClassNotFoundException c) {
